@@ -24,5 +24,5 @@ def stock_picker(stocks)
 
 end
 
-x = stock_picker(stocks)
+x = stock_picker(stocks3)
 p x
