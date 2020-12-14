@@ -9,11 +9,10 @@ class GameRun
     p key
     @player_one_score = 0
     @player_two_score = 0
-    human_turn(key)
   end
 
   # THIS IS THE KEY
-  def human_turn(key)
+  def human_guess(key,guess_counter)
     puts ' _____________ '
     puts '|             |'
     puts '| 1 - RED     |'
@@ -22,10 +21,16 @@ class GameRun
     puts '| 4 - WHITE   |'
     puts '| 5 - YELLOW  |'
     puts '|_____________|'
-    puts "It's your turn to guess. Using the numbers below enter your four guesses" \
+    puts "Guess ##{(guess_counter + 1)}/12. Using the numbers below enter your four guesses" \
     ' one at a time.'
     answer = take_input
+    if answer == key
+      round_end
+      true
+    end
     @comparison = compare_answer(key, answer)
+    p @comparison
+    false
   end
 
   # 2 = RED PEG - Correct color and location
@@ -34,7 +39,6 @@ class GameRun
   def compare_answer(key, answer)
     comparison = []
     successful_colors = []
-    round_end if answer == key
     # creates 2 arrays. one which will contain the feedback peg colors and another
     # which will help validate 'correct color and incorrect placement' choices
     (0..3).each do |i|
@@ -86,4 +90,25 @@ class GameRun
   def round_end
     puts 'YOU HAVE SUCCESSFULLY CRACKED THE CODE'
   end
+end
+
+public
+# npc starts by guess 4 colors at random
+# it memorizes correct (RED) comparisons and will attempt to reuse white elsewhere
+def npc_guess(key, guess_counter)
+  puts "This is Agent Ruby's guess ##{(guess_counter + 1)}/12."
+  sleep(2)
+  puts "Agent Ruby is finalizing their guess."
+  colors = [1, 2, 3, 4, 5]
+  answer = []
+  (0..3).each do |_i|
+    answer.push(colors[rand(5)])
+  end
+  @comparison = compare_answer(key, answer)
+  p "KEY"
+  p key
+  p "NPC ANSWER"
+  p answer
+  p "Comparison array"
+  p @comparison
 end
