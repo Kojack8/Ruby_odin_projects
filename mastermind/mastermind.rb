@@ -166,7 +166,7 @@ class GameRun
     puts "It's your turn to guess. Using the numbers below enter your four guesses" \
     ' one at a time.'
     answer = take_input
-    compare_answer(key, answer)
+    @comparison = compare_answer(key, answer)
 
   end
   # 2 = RED PEG - Correct color and location
@@ -188,65 +188,42 @@ class GameRun
         comparison.push(nil)
       end
     end
-    # removes successful matches from both arrays
+    # removes successful matches from both arrays for just color check
     successful_colors.each do |x|
       key.slice!(key.index(x))
       answer.slice!(answer.index(x))
     end
-    # compares remaining answer and key for correct color with incorrect placement
-    # NONE OF THIS SHIT WORKS RIGHT AT ALL
-
-    p "Phase one comparison " + comparison.to_s
+    # Take the comparison array and maps nils to 1 for correct color
+    # or 0 for no correct features
+    supercounter = -1
     comparison.map! do |x|
-      included = false
+      counter = 0
+      correct_colors = []
+      while counter < answer.length
+        correct_colors.push(check_color(answer[counter], key))
+        counter += 1
+      end
       if x == nil
-        counter = -1
-        # THIS INCORRECTLY VALIDATES IN SITUATIONS WHERE GOOD FOLLOWS BAD
-        while counter < answer.length
-          counter += 1
-          if key.include?(answer[counter])
-            key.slice!(key.index(answer[counter]))
-            included = true
-            break
-          end
-        end
-        if included == true
-          1
+        supercounter += 1
+        if correct_colors[supercounter] == true
+          x = 1
         else
-          0 
+          x = 0
         end
       else
         x = x 
       end
     end
-    p "Phase two comparison " + comparison.to_s
+    # returns completed array to parent function self.METHOD_turn
+    comparison
+  end
 
-    # EVERYTHING ABOVE THIS LINE IS HORSESHIT
-
-
-
-    #answer.each do |x|
-    #  p "Answer each:" + x.to_s
-    #  while counter < 4
-    #    if comparison[counter] == nil
-    #      if key.include?(x)
-    #        key.slice!(key.index(x))
-    #        comparison[counter] = 1
-    #      else
-    #        comparison[counter] = 0
-    #      counter += 1
-    #      p comparison
-    #      end
-    #    end
-    #  end
-    #end
-    
-
-
-    
-
-    
-
+  def check_color(answer, key)
+    if key.include?(answer)
+      true
+    else
+      false
+    end
   end
 
   def round_end
