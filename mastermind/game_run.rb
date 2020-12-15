@@ -26,17 +26,24 @@ class GameRun
     answer = take_input
     if answer == key
       round_end
-      true
+      return true
     end
     @comparison = compare_answer(key, answer)
+    puts "WHAT FOLLOWS SHOULD BE THE COMPARISON ARRAY"
     p @comparison
-    false
+    return false
   end
 
   # 2 = RED PEG - Correct color and location
   # 1 = WHITE PEG - Correct color; incorrect location
   # 0 = NO PEG - Wrong color and location
   def compare_answer(key, answer)
+    key_save = []
+    counter = 0
+    while counter < 4
+      key_save.push(key[counter])
+      counter += 1
+    end
     comparison = []
     successful_colors = []
     # creates 2 arrays. one which will contain the feedback peg colors and another
@@ -46,26 +53,27 @@ class GameRun
         comparison.push(2)
         successful_colors.push(answer[i])
       else
+        successful_colors.push(nil)
         comparison.push(nil)
       end
     end
+  
     # removes successful matches from both arrays for just color check
-    successful_colors.each do |x|
-      key.slice!(key.index(x))
-      answer.slice!(answer.index(x))
-    end
+    #successful_colors.each do |x|
+    #  key.slice!(key.index(x))
+    #  answer.slice!(answer.index(x))
+    #end
     # Take the comparison array and maps nils to 1 for correct color
     # or 0 for no correct features
+    correct_colors = check_color(answer, key)
+    p "CORRECT COLORS"
+    p correct_colors
+    
     supercounter = -1
+    p comparison
     comparison.map! do |x|
-      counter = 0
-      correct_colors = []
-      while counter < answer.length
-        correct_colors.push(check_color(answer[counter], key))
-        counter += 1
-      end
+      supercounter += 1
       if x.nil?
-        supercounter += 1
         x = if correct_colors[supercounter] == true
               1
             else
@@ -75,16 +83,74 @@ class GameRun
         x = x
       end
     end
+      
     # returns completed array to parent function self.METHOD_turn
     comparison
   end
 
+  # CHECK COLOR DOESN'T WORK RIGHT. THIS IS WHERE YOU LEFT OFF
   def check_color(answer, key)
-    if key.include?(answer)
-      true
-    else
-      false
+    temp_key = []
+    temp_answer = []
+    i = 0
+    while i < 4
+      temp_key.push(key[i])
+      temp_answer.push(key[i])
+      i += 1
     end
+    final = []
+
+    temp_key.map! { |x| 
+      counter = 0
+      while counter < 4
+        if x == answer[counter]
+          x = nil
+        else
+          x = x
+        end
+        counter += 1
+      end
+    }
+
+    temp_answer.map! { |x|
+      counter = 0
+      while counter < 4
+        if temp_key[counter] == nil
+          x = nil
+        else
+          x = x
+        end
+        counter += 1
+      end
+    }
+
+    counter = 0
+    while counter < 4
+      if temp_key.include?(answer[counter])
+        temp_key.map! { |x| 
+            if x == answer[counter]
+              x = nil
+            else
+              x = x
+            end
+        }
+        temp_answer.map! { |x|
+          if temp_key[counter] == nil
+            x = nil
+          else
+            x = x
+          end
+        }
+        final.push(true)
+      else
+        final.push(false)
+      end
+      counter += 1
+    end
+
+    p "COLOR CHECK"
+    p final
+    return final
   end
 
   def round_end
@@ -99,10 +165,40 @@ def npc_guess(key, guess_counter)
   puts "This is Agent Ruby's guess ##{(guess_counter + 1)}/12."
   sleep(2)
   puts "Agent Ruby is finalizing their guess."
-  colors = [1, 2, 3, 4, 5]
-  answer = []
-  (0..3).each do |_i|
-    answer.push(colors[rand(5)])
+  # needs to determind if computers first guess this turn
+  # if yes just guess at random
+  # if no checks @comparison
+  # for colors at positions w/ 2 repeat guess
+  if guess_counter == 0
+    colors = [1, 2, 3, 4, 5]
+    answer = []
+    (0..3).each do |_i|
+      answer.push(colors[rand(5)])
+    end
+  else
+    counter = 0
+    confirmed_wrong_loc = {}
+    answer = answer.map { |x|
+      
+      if @comparison[counter] == 2
+        x = x
+      elsif @comparison[counter] == 1
+        # key is the space-number and the values are an array which contains the colors
+        # that the npc should not guess at the keys location again
+        begin 
+          confirmed_wrong_loc[counter] << x
+        rescue 
+          confirmed_wrong_loc[counter] = [x]
+        end
+        x = nil
+      else
+        x = nil        
+      end
+      counter += 1
+    }
+    p answer
+    
+
   end
   @comparison = compare_answer(key, answer)
   p "KEY"
