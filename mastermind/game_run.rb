@@ -38,12 +38,6 @@ class GameRun
   # 1 = WHITE PEG - Correct color; incorrect location
   # 0 = NO PEG - Wrong color and location
   def compare_answer(key, answer)
-    key_save = []
-    counter = 0
-    while counter < 4
-      key_save.push(key[counter])
-      counter += 1
-    end
     comparison = []
     successful_colors = []
     # creates 2 arrays. one which will contain the feedback peg colors and another
@@ -57,18 +51,8 @@ class GameRun
         comparison.push(nil)
       end
     end
-  
-    # removes successful matches from both arrays for just color check
-    #successful_colors.each do |x|
-    #  key.slice!(key.index(x))
-    #  answer.slice!(answer.index(x))
-    #end
-    # Take the comparison array and maps nils to 1 for correct color
-    # or 0 for no correct features
-    correct_colors = check_color(answer, key)
-    p "CORRECT COLORS"
-    p correct_colors
-    
+    correct_colors = check_color(key, answer)
+
     supercounter = -1
     p comparison
     comparison.map! do |x|
@@ -83,73 +67,64 @@ class GameRun
         x = x
       end
     end
-      
     # returns completed array to parent function self.METHOD_turn
     comparison
   end
 
-  # CHECK COLOR DOESN'T WORK RIGHT. THIS IS WHERE YOU LEFT OFF
-  def check_color(answer, key)
+
+  def check_color(key, answer)
     temp_key = []
     temp_answer = []
     i = 0
     while i < 4
       temp_key.push(key[i])
-      temp_answer.push(key[i])
+      temp_answer.push(answer[i])
       i += 1
     end
-    final = []
 
-    temp_key.map! { |x| 
-      counter = 0
-      while counter < 4
-        if x == answer[counter]
-          x = nil
-        else
-          x = x
-        end
-        counter += 1
+    i = -1
+    temp_key.map! { |x|
+      i += 1
+      if temp_key[i] == temp_answer[i]
+        x = nil
+      else 
+        x = x
       end
     }
 
+    i = -1
     temp_answer.map! { |x|
-      counter = 0
-      while counter < 4
-        if temp_key[counter] == nil
-          x = nil
-        else
-          x = x
-        end
-        counter += 1
+      i += 1
+      if temp_key[i] == nil
+        x = -1
+      else 
+        x = x
       end
     }
 
+    final = []
     counter = 0
     while counter < 4
-      if temp_key.include?(answer[counter])
-        temp_key.map! { |x| 
-            if x == answer[counter]
+      if temp_key.include?temp_answer[counter]
+        final.push(true)
+        limit_once = false
+        temp_key.map! { |x|
+          if limit_once == false
+            if x == temp_answer[counter]
+              limit_once = true
               x = nil
             else
               x = x
             end
-        }
-        temp_answer.map! { |x|
-          if temp_key[counter] == nil
-            x = nil
           else
             x = x
           end
         }
-        final.push(true)
       else
         final.push(false)
       end
       counter += 1
     end
-
-    p "COLOR CHECK"
-    p final
     return final
   end
 
