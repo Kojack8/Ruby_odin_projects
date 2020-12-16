@@ -40,7 +40,6 @@ if game_mode == 1
     correct = false
     while guess_counter < 12 && correct == false
       correct = game.npc_guess(key, guess_counter, 1)
-      p correct
       guess_counter += 1
     end
     
