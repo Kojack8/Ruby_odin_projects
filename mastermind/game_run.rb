@@ -20,6 +20,7 @@ class GameRun
 
     round = Round.new
     @round_total = round.get_round
+    # I think round might be okay here but I need to set it up down lower too
     run_game
   end
 
@@ -28,6 +29,7 @@ class GameRun
     while counter < @round_total
       turn_order
       counter += 1
+      game_over
     end
   end
 
@@ -44,10 +46,26 @@ class GameRun
     # GAME MODE ONE MEANS I GO FIRST AND THEN THE COMPUTER GOES. SO ITS JUST HUMAN THEN NPC
     if @game_mode == 0
       # I think maybe the guess functions should return the number to add to the point total
-      key = NewKey.new 
-      key = key.generate_key(@game_mode, @player_one)
-      @player_one_score += HumanGuess.new(key, @player_one)
+      p 'R1 @player_one_score' + @player_one_score.to_s
+      p 'R1@player_two_score' + @player_two_score.to_s
+      key = NewKey.new(@player_two)
+      key = key.choose_key_npc
+      p 'KEY CHECK! ' + key.to_s
+      player_one_turn = HumanGuess.new(key, @player_one)
+      @player_two_score += player_one_turn.human_guess
 
+      p 'R2 @player_one_score' + @player_one_score.to_s
+      p 'R2 @player_two_score' + @player_two_score.to_s
+      # NOW ITS THE COMPUTERS TURN! 
+      key = NewKey.new(@player_one)
+      key = key.choose_key_pc
+      p 'KEY CHECK! ' + key.to_s
+      player_two_turn = NPCGuess.new(key)
+      @player_one_score += player_two_turn.npc_guess
+      p 'R2 @player_one_score' + @player_one_score.to_s
+      p 'R2 @player_two_score' + @player_two_score.to_s
+
+      # EACH TURN. GET KEY FROM OPPOSITE PLAYER -> GUESS -> SCORE
 
     elsif @game_mode == 1
 
@@ -56,15 +74,15 @@ class GameRun
     end
   end
 
-
-
-  # i will call for these methods from within the functions that call guesses
-  def player_one_plus
-    @player_one_score += 1
-  end
-
-  def player_two_plus
-    @player_two_score += 1
+  def game_over
+    puts 'Game over.'
+    puts "Final score: Agent #{@player_one}: #{@player_one_score} || Agent " \
+    "#{@player_two}: #{@player_two_score}"
+    if @player_one_score > @player_two_score
+      puts "Congratulations Agent #{@player_one}."
+    else
+      puts "Congratulations Agent #{@player_two}"
+    end
   end
 
 

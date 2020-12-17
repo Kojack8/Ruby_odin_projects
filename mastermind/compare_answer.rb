@@ -2,25 +2,30 @@
 
 class CompareAnswer
   def initialize(key, answer)
-    comparison = []
-    successful_colors = []
+    @comparison = []
+    @successful_colors = []
+    @key = key
+    @answer = answer
     # creates 2 arrays. one which will contain the feedback peg colors and another
     # which will help validate 'correct color and incorrect placement' choices
     (0..3).each do |i|
       if answer[i] == key[i]
-        comparison.push(2)
-        successful_colors.push(answer[i])
+        @comparison.push(2)
+        @successful_colors.push(answer[i])
       else
-        successful_colors.push(nil)
-        comparison.push(nil)
+        @successful_colors.push(nil)
+        @comparison.push(nil)
       end
     end
+  end
+
+  def run_comparison
     # returns an array of bools expessions where in true reps. correct_color with 
     # incorrect location
-    correct_colors = check_color(key, answer)
-    # comparison array gets mapped to change nil values to either 1 or 0
+    correct_colors = check_color
+    # @comparison array gets mapped to change nil values to either 1 or 0
     supercounter = -1
-    comparison.map! do |x|
+    @comparison.map! do |x|
       supercounter += 1
       if x.nil?
         x = if correct_colors[supercounter] == true
@@ -37,16 +42,16 @@ class CompareAnswer
     # 2 = RED PEG - Correct color and location
     # 1 = WHITE PEG - Correct color; incorrect location
     # 0 = NO PEG - Wrong color and location
-    comparison
+    @comparison
   end
 
-  def check_color(key, answer)
+  def check_color
     temp_key = []
     temp_answer = []
     i = 0
     while i < 4
-      temp_key.push(key[i])
-      temp_answer.push(answer[i])
+      temp_key.push(@key[i])
+      temp_answer.push(@answer[i])
       i += 1
     end
 
