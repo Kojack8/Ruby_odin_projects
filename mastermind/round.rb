@@ -1,12 +1,10 @@
 class Round
-  def explain_round
+  def initialize
     puts 'Each round is made up of two turns.'
     puts 'During each turn the CodeBREAKER will have 12 opportunities to guess' \
     ' the new code.'
     puts 'For every attempted guess the CodeMASTER earns a single point'
     puts 'The round ends after 12 guesses or when the CodeBREAKER guesses correctly.'
-    rounds = get_round
-    return rounds
   end
 
   def get_round

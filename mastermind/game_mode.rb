@@ -21,6 +21,7 @@ class GameMode
 
   def turn_order
     if @users == 'one'
+      @name_two = 'Ruby'
       puts "If you'd like to go first as the 'Codebreaker' enter 1 now."
       puts "If you'd like to go first as the 'Codemaker' enter 2 now."
       x = gets.to_i
@@ -29,12 +30,12 @@ class GameMode
         # mode one is NPC CODEMAKER v PC BREAKER
         puts 'Enter your name, agent.'
         @name_one = gets.chomp
-        @mode = 1
+        @mode = 0
       when 2
         # mode two is PC MAKER v NPC BREAKER
         puts 'Enter your name, agent.'
         @name_one = gets.chomp
-        @mode = 2
+        @mode = 1
       else
         puts "I'm sorry. That's an invalid entry. Please try again."
         turn_order
@@ -43,7 +44,7 @@ class GameMode
     end
     if @users == 'two'
       # mode three is PC MAKER v PC BREAKER. Player one is always the codemaker
-      @mode = 3
+      @mode = 2
       puts 'Player One: Enter your name'
       @name_one = gets.chomp
       puts 'Player Two: Enter your name'

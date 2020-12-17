@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module CompareAnswer
-  def compare_answer(key, answer)
+class CompareAnswer
+  def initialize(key, answer)
     comparison = []
     successful_colors = []
     # creates 2 arrays. one which will contain the feedback peg colors and another

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-# On program launch, this class runs returning the num 1-3 to represent which
-# game mode is being used
-module UserInput
+module TakeInput
   def take_input
     key = []
     (0..3).each do |_i|
