@@ -33,8 +33,7 @@ if game_mode == 1
       correct = game.human_guess(key, guess_counter, player_one, 1)
       guess_counter += 1
     end
-    puts game.player_one_score
-    puts game.player_two_score
+
 
     guess_counter = 0
     correct = false
@@ -42,6 +41,9 @@ if game_mode == 1
       correct = game.npc_guess(key, guess_counter, 1)
       guess_counter += 1
     end
+
+    puts "ROUND 2: PLAYER ONE SCORE " + game.player_one_score.to_s
+    puts "ROUND 2: PLAYER TWO SCORE " + game.player_two_score.to_s
     
 
     round_counter += 1

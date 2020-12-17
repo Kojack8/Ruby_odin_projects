@@ -14,11 +14,19 @@ class GameRun
     @confirmed_wrong_loc = {}
   end
 
+  def player_one_plus
+    @player_one_score += 1
+  end
+
+  def player_two_plus
+    @player_two_score += 1
+  end
+
   def human_guess(key, guess_counter, player, player_points)
     if player_points == 1
-      @player_two_score += 1
+      player_one_plus
     else
-      @player_one_score += 1
+      player_two_plus
     end
     puts ' _____________ '
     puts '|             |'
@@ -48,11 +56,10 @@ class GameRun
   # npc starts by guess 4 colors at random
   # it memorizes correct (RED) comparisons and will attempt to reuse white elsewhere
   def npc_guess(key, guess_counter, player_points)
-    p "KEY#{key}"
     if player_points == 1
-      @player_two_score += 1
+      player_two_plus
     else
-      @player_one_score += 1
+      player_one_plus
     end
     puts "This is Agent Ruby's guess ##{guess_counter + 1}/12."
     sleep(2)
@@ -145,5 +152,10 @@ class GameRun
     return answer
   end
 
+
   attr_reader :player_one_score, :player_two_score
+end
+
+class Child < GameRun
+
 end
