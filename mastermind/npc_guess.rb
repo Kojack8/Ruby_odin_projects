@@ -70,6 +70,10 @@ class NPCGuess
           break
         end
     end
+    # gives a bonus point if you go the whole round without getting any
+    if @guess_counter == 12
+      @guess_counter += 1
+    end
     @guess_counter
   end
 

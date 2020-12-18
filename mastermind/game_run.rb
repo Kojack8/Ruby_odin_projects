@@ -46,32 +46,43 @@ class GameRun
     # GAME MODE ONE MEANS I GO FIRST AND THEN THE COMPUTER GOES. SO ITS JUST HUMAN THEN NPC
     if @game_mode == 0
       # I think maybe the guess functions should return the number to add to the point total
-      p 'R1 @player_one_score' + @player_one_score.to_s
-      p 'R1@player_two_score' + @player_two_score.to_s
+
       key = NewKey.new(@player_two)
       key = key.choose_key_npc
-      p 'KEY CHECK! ' + key.to_s
       player_one_turn = HumanGuess.new(key, @player_one)
       @player_two_score += player_one_turn.human_guess
 
-      p 'R2 @player_one_score' + @player_one_score.to_s
-      p 'R2 @player_two_score' + @player_two_score.to_s
-      # NOW ITS THE COMPUTERS TURN! 
       key = NewKey.new(@player_one)
       key = key.choose_key_pc
       p 'KEY CHECK! ' + key.to_s
       player_two_turn = NPCGuess.new(key)
       @player_one_score += player_two_turn.npc_guess
-      p 'R2 @player_one_score' + @player_one_score.to_s
-      p 'R2 @player_two_score' + @player_two_score.to_s
 
-      # EACH TURN. GET KEY FROM OPPOSITE PLAYER -> GUESS -> SCORE
 
     elsif @game_mode == 1
+      key = NewKey.new(@player_one)
+      key = key.choose_key_pc
+      p 'KEY CHECK! ' + key.to_s
+      player_two_turn = NPCGuess.new(key)
+      @player_one_score += player_two_turn.npc_guess
+
+      key = NewKey.new(@player_two)
+      key = key.choose_key_npc
+      player_one_turn = HumanGuess.new(key, @player_one)
+      @player_two_score += player_one_turn.human_guess
 
     elsif @game_mode == 2
+      key = NewKey.new(@player_two)
+      key = key.choose_key_pc
+      player_one_turn = HumanGuess.new(key, @player_one)
+      @player_two_score += player_one_turn.human_guess
 
+      key = NewKey.new(@player_one)
+      key = key.choose_key_pc
+      player_two_turn = HumanGuess.new(key, @player_two)
+      @player_one_score += player_two_turn.human_guess
     end
+
   end
 
   def game_over
@@ -80,8 +91,10 @@ class GameRun
     "#{@player_two}: #{@player_two_score}"
     if @player_one_score > @player_two_score
       puts "Congratulations Agent #{@player_one}."
-    else
+    elsif @player_two_score > @player_one_score
       puts "Congratulations Agent #{@player_two}"
+    else
+      puts "It's a draw!"
     end
   end
 
