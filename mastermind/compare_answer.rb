@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
-# Comparison should first contain
-# I could always reorder the array later so that isn't too important
-# you can keep in the comparison pushes on matching the key and answer
-# I guess you can even keep the ones and just rearrage them?
-# maybe the real problem is that npc guess won't respond properly! OH SHIT THAT IS IT
+# Comparison mworks correctly.Then npc guess will have to deal with 
+# the reality of that return
 class CompareAnswer
   def initialize(key, answer)
     @comparison = []
@@ -47,7 +44,8 @@ class CompareAnswer
     # 2 = RED PEG - Correct color and location
     # 1 = WHITE PEG - Correct color; incorrect location
     # 0 = NO PEG - Wrong color and location
-    @comparison
+    # reorders 2 -> 1 -> 0
+    @comparison = @comparison.sort { |a, b| b <=> a}
   end
 
   def check_color

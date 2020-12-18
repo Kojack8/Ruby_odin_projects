@@ -8,7 +8,6 @@ class NPCGuess
   # it memorizes correct (RED) comparisons and will attempt to reuse white elsewhere
   def initialize(key)
     @key = key
-    @confirmed_wrong_loc = {}
     @answer = []
     @guess_counter = 0
     @winner = false
@@ -30,6 +29,13 @@ class NPCGuess
           @answer.push(colors[rand(5)])
         end
       
+      # THE PROBLEM IS BELOW ME
+      # ##########################
+      # IF THE NUMBER 2 IS RETURNED SOMETHING IS PERFECT
+      # IF THE NUMBER 1 IS RETURNED THE COLOR IS RIGHT
+      # IF THE NUMBER 0 IS RETURED A NUMBER IDEALLY WOULD NOT BE GUESSED AGAIN
+      # BUT THERE IS ABSOLUTELY NO WAY TO BE SURE
+
       else
         counter = -1
         confirmed_wrong_colors = []
@@ -38,37 +44,31 @@ class NPCGuess
           case @comparison[counter]
           when 2
             x = x
+            # the comparison number being 2 is not as important as it was in the 
+            # the last version
 
           when 1
-            # key is the space-number and the values are an array which contains the colors
-            # that the npc should not guess at the keys location again
-            begin
-              @confirmed_wrong_loc[counter] << x
-            rescue StandardError
-              @confirmed_wrong_loc[counter] = [x]
-            end
-            x = intel_guess(confirmed_wrong_colors, counter)
-
-            # if at the location of this comparison the value is nil
-            # that means the color and location is wrong
-            # so the color in the answer at the same location can be added to the wrong
-            # array
+            # if the number here is one then it should guess a number again
+            # 
           else
             confirmed_wrong_colors.push(x)
-            x = intel_guess(confirmed_wrong_colors, counter)
+            # the above step still works on the incorrect premise that the location
+            # is relevant to the key peg. IT ISN'T. YOU HAVE TO SIMPLIFY COMPARISON
+            # wrong colors from the possible answers
 
           end
         end
       end
+
+      # ############################
+      # EVERYTHING FROM HERE DOWN SHOULD WORK CORRECTTLY
       @guess_counter += 1
-      p 'NPC ANSWER ' + @answer.to_s
-        compare = CompareAnswer.new(@key, @answer)
-        @comparison = compare.run_comparison
-        p @comparison
-        if check_winner(@key, @answer) == true 
-          @winner = true
-          break
-        end
+      compare = CompareAnswer.new(@key, @answer)
+      @comparison = compare.run_comparison
+      if check_winner(@key, @answer) == true 
+        @winner = true
+        break
+      end
     end
     # gives a bonus point if you go the whole round without getting any
     if @guess_counter == 12
