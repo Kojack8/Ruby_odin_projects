@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-# THE HASH IS DEF NOT RIGHT. ALSO COMPARISON IS FUNDEMENTALLY WRONG
-# YOU MADE YOUR COMPARISON MUCH HARDER THEN IT HAD TO BE
-# IT'S COOL AND YOU FIGURED OUT HOW TO DO SMART THINGS, BUT FULFILLING THE SPECS
-# IS MORE IMPORTANT THAN BEING SMART
+# Comparison should first contain
+# I could always reorder the array later so that isn't too important
+# you can keep in the comparison pushes on matching the key and answer
+# I guess you can even keep the ones and just rearrage them?
+# maybe the real problem is that npc guess won't respond properly! OH SHIT THAT IS IT
 class CompareAnswer
   def initialize(key, answer)
     @comparison = []

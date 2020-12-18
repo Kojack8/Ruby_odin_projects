@@ -77,8 +77,7 @@ class NPCGuess
     @guess_counter
   end
 
-  # NPC maintains an array of possible answers
-  # Any number that is determined to definetly not be in the key is sliced out
+  # COMPARE ANSWER ACTUALLY WORKS OKAY, BUT INTEL-GUESS IS TOTALLY WRONG!
   def intel_guess(confirmed_wrong_colors, counter)
     possible_answers = [1, 2, 3, 4, 5]
     possible_answers.each do |x|
