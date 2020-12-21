@@ -23,8 +23,9 @@ class HumanGuess
       puts '| 1 - RED     |'
       puts '| 2 - GREEN   |'
       puts '| 3 - BLUE    |'
-      puts '| 4 - WHITE   |'
+      puts '| 4 - CYAN    |'
       puts '| 5 - YELLOW  |'
+      puts '| 6 - MAGENTA |'
       puts '|_____________|'
       puts "Guess ##{@guess_counter}/12 for Agent #{@player}. Using the numbers below enter your four guesses" \
       ' one at a time.'

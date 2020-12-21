@@ -1,9 +1,5 @@
 class NpcGuess
   def initialize
-    @counter_zero = 0
-    @counter_one = 0
-    @counter_two = 0
-    @counter_three = 0
     @s = []
     @x = [1, 1, 1, 1]
   end
@@ -21,7 +17,6 @@ class NpcGuess
       i += 1
       n
     }
-    @counter_zero += 1
   end
 
   def inc_one
@@ -36,7 +31,6 @@ class NpcGuess
       i += 1
       n
     }
-    @counter_one += 1
   end
 
 
@@ -53,7 +47,6 @@ class NpcGuess
       i += 1
       n
     }
-    @counter_two += 1
   end
 
   def inc_three
@@ -68,7 +61,6 @@ class NpcGuess
       i += 1
       n
     }
-    @counter_three += 1
   end
 
   def add_arr

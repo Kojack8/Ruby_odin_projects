@@ -21,18 +21,19 @@ class NewKey
     puts '| 1 - RED     |'
     puts '| 2 - GREEN   |'
     puts '| 3 - BLUE    |'
-    puts '| 4 - WHITE   |'
+    puts '| 4 - CYAN    |'
     puts '| 5 - YELLOW  |'
+    puts '| 6 - MAGENTA |'
     puts '|_____________|'
     puts 'Make your selections now.'
     key = take_input
   end
 
   def choose_key_npc
-    colors = [1, 2, 3, 4, 5]
+    colors = [1, 2, 3, 4, 5, 6]
     key = []
     (0..3).each do |_i|
-      key.push(colors[rand(5)])
+      key.push(colors[rand(6)])
     end
     puts 'The Codemaker has locked in their code.'
     key
