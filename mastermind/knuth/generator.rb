@@ -1,13 +1,7 @@
-class NpcGuess
-  def initialize
-    @s = []
-    @x = [1, 1, 1, 1]
-  end
-
-  def inc_zero
-
+module Generator
+  def inc_zero(guess)
     i = 0
-    @x = @x.map { |n|
+    guess = guess.map { |n|
       if i == 0
         n += 1
         if n == 7
@@ -17,11 +11,12 @@ class NpcGuess
       i += 1
       n
     }
+    return guess
   end
 
-  def inc_one
+  def inc_one(guess)
     i = 0
-    @x = @x.map { |n|
+    guess = guess.map { |n|
       if i == 1
         n += 1
         if n == 7
@@ -31,13 +26,13 @@ class NpcGuess
       i += 1
       n
     }
+    return guess
   end
 
 
-  def inc_two
-
+  def inc_two(guess)
     i = 0
-    @x = @x.map { |n|
+    guess = guess.map { |n|
       if i == 2
         n += 1
         if n == 7
@@ -47,11 +42,12 @@ class NpcGuess
       i += 1
       n
     }
+    return guess
   end
 
-  def inc_three
+  def inc_three(guess)
     i = 0
-    @x = @x.map { |n|
+    guess = guess.map { |n|
       if i == 3
         n += 1
         if n == 7
@@ -61,14 +57,6 @@ class NpcGuess
       i += 1
       n
     }
+    return guess
   end
-
-  def add_arr
-    @s << @x
-  end
-  attr_reader :s
 end
-
-
-
-
