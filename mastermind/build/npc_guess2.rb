@@ -14,7 +14,7 @@ class NpcGuess
     @x = @x.map { |n|
       if i == 0
         n += 1
-        if n == 6
+        if n == 7
           n = 1
         end
       end
@@ -29,7 +29,7 @@ class NpcGuess
     @x = @x.map { |n|
       if i == 1
         n += 1
-        if n == 6
+        if n == 7
           n = 1
         end
       end
@@ -46,7 +46,7 @@ class NpcGuess
     @x = @x.map { |n|
       if i == 2
         n += 1
-        if n == 6
+        if n == 7
           n = 1
         end
       end
@@ -61,7 +61,7 @@ class NpcGuess
     @x = @x.map { |n|
       if i == 3
         n += 1
-        if n == 6
+        if n == 7
           n = 1
         end
       end
@@ -77,29 +77,6 @@ class NpcGuess
   attr_reader :s
 end
 
-guess = NpcGuess.new
-guess.add_arr
 
-counter = 0
-while counter < 4
-  y = guess.inc_three
-  counter += 1
-  guess.add_arr
-end
-
-counter = 0
-while counter < 4
-  y = guess.inc_two
-  i = 0
-  while i < 5
-    y = guess.inc_three
-    i += 1
-    guess.add_arr
-  end
-  counter += 1
-end
-
-
-puts guess.s.to_s
 
 
