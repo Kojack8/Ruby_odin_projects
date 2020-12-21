@@ -8,7 +8,7 @@ class NPCGuess
   # it memorizes correct (RED) comparisons and will attempt to reuse white elsewhere
   def initialize(key)
     @key = key
-    @answer = []
+    @answer = [1, 1, 2, 2]
     @guess_counter = 0
     @winner = false
   end
@@ -22,42 +22,10 @@ class NPCGuess
       puts "This is Agent Ruby's guess ##{@guess_counter + 1}/12."
       sleep(2)
       puts 'Agent Ruby is finalizing their guess.'
-      # THIS PART DETERMINES WHETHER TO START FROM A BLANK ARRAY OR USE SOMETHING PASSED IN
-      if @guess_counter.zero?
-        colors = [1, 2, 3, 4, 5]
-        (0..3).each do |_i|
-          @answer.push(colors[rand(5)])
-        end
       
-      # THE PROBLEM IS BELOW ME
-      # ##########################
-      # IF THE NUMBER 2 IS RETURNED SOMETHING IS PERFECT
-      # IF THE NUMBER 1 IS RETURNED THE COLOR IS RIGHT
-      # IF THE NUMBER 0 IS RETURED A NUMBER IDEALLY WOULD NOT BE GUESSED AGAIN
-      # BUT THERE IS ABSOLUTELY NO WAY TO BE SURE
-
-      else
-        counter = -1
-        confirmed_wrong_colors = []
-        @answer.map! do |x|
-          counter += 1
-          case @comparison[counter]
-          when 2
-            x = x
-            # the comparison number being 2 is not as important as it was in the 
-            # the last version
-
-          when 1
-            # if the number here is one then it should guess a number again
-            # 
-          else
-            confirmed_wrong_colors.push(x)
-            # the above step still works on the incorrect premise that the location
-            # is relevant to the key peg. IT ISN'T. YOU HAVE TO SIMPLIFY COMPARISON
-            # wrong colors from the possible answers
-
-          end
-        end
+      unless @guess_counter.zero?
+      
+        
       end
 
       # ############################
