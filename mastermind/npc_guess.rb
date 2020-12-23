@@ -39,24 +39,26 @@ class NPCGuess
 
         p @comparison
       elsif @guess_counter == 1
+
         @possibilities_arr = knuthcomparison.default_possibilities
         @g_score_arr = []
-        knu_arr.each { |g| 
-          g.each{ |x|
-            compare = CompareAnswer.new(x, g)
+        for i in 0..(knu_arr.length - 1)
+          guess = knu_arr[i]
+          for j in 0..(knu_arr.length - 1)
+            compare = CompareAnswer.new(knu_arr[j], guess)
             compare = compare.run_comparison
             @possibilities_arr = knuthcomparison.calc_possibilities(compare, @possibilities_arr)
-            # this is the least informative possible result of guessing g
-            g_score = @possibilities_arr.sort_by { |k, v| v }.last
-            p "G SCORE " + g_score.to_s
-            
-          }
-          # THIS IS ON THE TRAIL OF SOMETHING BUT G SCORE IS NOT YET CORRECT
-          
+          end
+          guess = @possibilities_arr.sort_by { |k, v| v }.last
+          @g_score_arr << guess[1]
           @possibilities_arr = knuthcomparison.default_possibilities
-          p @g_score_arr
-        }
-       
+        end
+        p "GUESS ARR " + @g_score_arr.to_s
+        puts "LOWEST G SCORE = " + @g_score_arr.min.to_s
+
+        ## THIS IS COMING ALONG RUN IT ONCE AND WATCH WHAT HAPPENS
+        # BUT MAYBE TIME IT THIS TIME
+        
 
         
 

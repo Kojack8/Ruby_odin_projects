@@ -34,17 +34,18 @@ class KnuthComparison
       [1, 1, 0, 0] => 0, [1, 0, 0, 0] => 0, [1, 1, 1, 1] => 0, 
       [1, 1, 1, 0] => 0, [2, 1, 1, 1] => 0
       }
-      
+
   end
 
   def calc_possibilities(comparison, poss_arr)
-    p poss_arr
-    poss_arr.map { |k, v| 
+    
+    poss_arr.each { |k, v| 
       if k == comparison
         poss_arr[k] += 1
       end
-      
+  
     }
+    
     return poss_arr
 
 
