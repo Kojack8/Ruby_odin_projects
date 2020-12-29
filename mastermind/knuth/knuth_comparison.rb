@@ -1,27 +1,28 @@
 require_relative './../compare_answer'
 
 class KnuthComparison
-  def run_comparison(key, knu_arr)
-    comparison_arr = []
-    # creates a massive array that is made up of 1296 key-answer comparison arrays
+  def run_comparison(org_comparison, guess, knu_arr)
+    comp_arr = []
     knu_arr.each { |x|
-      compare = CompareAnswer.new(key, x)
-      comparison = compare.run_comparison
-      comparison_arr << comparison
+      compare_answer = CompareAnswer.new(x, guess)
+      compared = compare_answer.run_comparison
+      if compared == org_comparison
+        comp_arr << true
+      else
+        comp_arr << false
+      end
     }
-    comparison_arr
+    comp_arr
   end
 
-  def remove_comparisons(knu_arr, comparison_arr, comparison)
+  def remove_comparisons(knu_arr, comparison_arr)
     counter = 0
     comparison_arr.each { |x| 
-      if x != comparison
+      if x == false
         knu_arr.slice!(counter)
-        comparison_arr.slice!(counter)
         counter -= 1
-      else
-        counter += 1
       end
+    counter += 1
     }
     knu_arr
   end
