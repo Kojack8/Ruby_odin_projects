@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Decides number of players and turn order
 class GameMode
   def initialize
     puts 'How many humans would like to play this game? One or Two?'
@@ -42,14 +43,14 @@ class GameMode
 
       end
     end
-    if @users == 'two'
-      # mode three is PC MAKER v PC BREAKER. Player one is always the codemaker
-      @mode = 2
-      puts 'Player One: Enter your name'
-      @name_one = gets.chomp
-      puts 'Player Two: Enter your name'
-      @name_two = gets.chomp
-    end
+    return unless @users == 'two'
+
+    # mode three is PC MAKER v PC BREAKER. Player one is always the codemaker
+    @mode = 2
+    puts 'Player One: Enter your name'
+    @name_one = gets.chomp
+    puts 'Player Two: Enter your name'
+    @name_two = gets.chomp
   end
 
   attr_reader :mode, :name_one, :name_two

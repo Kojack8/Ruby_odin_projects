@@ -2,12 +2,13 @@
 
 require_relative 'take_input'
 
-# rubocop comment
+# Takes a key from a player or generates a key for an NPC
 class NewKey
   include TakeInput
   def initialize(player)
     @player = player
   end
+
   def choose_key_pc
     puts "Good afternoon, Agent #{@player}. Welcome to Mastermind."
     sleep(1)
@@ -26,7 +27,7 @@ class NewKey
     puts '| 6 - MAGENTA |'
     puts '|_____________|'
     puts 'Make your selections now.'
-    key = take_input
+    take_input
   end
 
   def choose_key_npc
@@ -37,7 +38,5 @@ class NewKey
     end
     puts 'The Codemaker has locked in their code.'
     key
-    
   end
-  
 end

@@ -1,5 +1,6 @@
 require_relative './../compare_answer'
 
+# ALlowing rubocop to autocorrect this page results in a break
 class KnuthComparison
   def run_comparison(org_comparison, guess, knu_arr)
     comp_arr = []
@@ -53,4 +54,3 @@ class KnuthComparison
 
   end
 end
-

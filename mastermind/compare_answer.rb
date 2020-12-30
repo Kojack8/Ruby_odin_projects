@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-# Comparison mworks correctly.Then npc guess will have to deal with 
-# the reality of that return
+# Compares a guess to the key and returns an comparison array
+# There are some time complexity problems on this page but correcting them is
+# outside the scope of this project
 class CompareAnswer
   def initialize(key, answer)
     @comparison = []
@@ -22,7 +23,7 @@ class CompareAnswer
   end
 
   def run_comparison
-    # returns an array of bools expessions where in true reps. correct_color with 
+    # returns an array of bools expessions where in true reps. correct_color with
     # incorrect location
     correct_colors = check_color
     # @comparison array gets mapped to change nil values to either 1 or 0
@@ -30,13 +31,13 @@ class CompareAnswer
     @comparison.map! do |x|
       supercounter += 1
       if x.nil?
-        x = if correct_colors[supercounter] == true
-              1
-            else
-              0
-            end
+        if correct_colors[supercounter] == true
+          1
+        else
+          0
+        end
       else
-        x = x
+        x
       end
     end
     # returns completed array to parent function self.METHOD_turn
@@ -45,7 +46,7 @@ class CompareAnswer
     # 1 = WHITE PEG - Correct color; incorrect location
     # 0 = NO PEG - Wrong color and location
     # reorders 2 -> 1 -> 0
-    @comparison = @comparison.sort { |a, b| b <=> a}
+    @comparison = @comparison.sort { |a, b| b <=> a }
   end
 
   def check_color
@@ -59,48 +60,48 @@ class CompareAnswer
     end
 
     i = -1
-    temp_key.map! { |x|
+    temp_key.map! do |x|
       i += 1
       if temp_key[i] == temp_answer[i]
-        x = nil
-      else 
-        x = x
+        nil
+      else
+        x
       end
-    }
+    end
 
     i = -1
-    temp_answer.map! { |x|
+    temp_answer.map! do |x|
       i += 1
-      if temp_key[i] == nil
-        x = -1
-      else 
-        x = x
+      if temp_key[i].nil?
+        -1
+      else
+        x
       end
-    }
+    end
 
     final = []
     counter = 0
     while counter < 4
-      if temp_key.include?temp_answer[counter]
+      if temp_key.include? temp_answer[counter]
         final.push(true)
         limit_once = false
-        temp_key.map! { |x|
+        temp_key.map! do |x|
           if limit_once == false
             if x == temp_answer[counter]
               limit_once = true
-              x = nil
+              nil
             else
-              x = x
+              x
             end
           else
-            x = x
+            x
           end
-        }
+        end
       else
         final.push(false)
       end
       counter += 1
     end
-    return final
+    final
   end
 end
