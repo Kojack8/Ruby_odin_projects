@@ -7,3 +7,4 @@ select_key.dict_to_arr
 key = select_key.select_key
 
 game = GameRun.new(key)
+game.game_run

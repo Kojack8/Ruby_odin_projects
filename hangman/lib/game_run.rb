@@ -1,3 +1,5 @@
+require_relative 'human_guess'
+
 class GameRun
   def initialize(key)
     @key = key
@@ -15,5 +17,6 @@ class GameRun
     while @guess_count < 6
       human_guess.guess
       @guess_count += 1
+    end
   end
 end
