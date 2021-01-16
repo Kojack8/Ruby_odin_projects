@@ -11,4 +11,6 @@ class Display
   def portray(guess_counter)
     puts @hangman_arr[guess_counter]
   end
+
+  
 end
