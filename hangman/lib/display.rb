@@ -5,10 +5,10 @@ require_relative 'guess_images'
 
 class Display
   def initialize
-    @guess_image = GuessImages.new
+    @hangman_arr = GuessImages::HANGMANPICS
   end
   
-  def test
-    puts @guess_image.guess_seven
+  def portray(guess_counter)
+    puts @hangman_arr[guess_counter]
   end
 end

@@ -10,7 +10,7 @@ class HumanGuess
     if pc_guess.to_i == 1
       guess_word
     else
-      pc_guess
+      [0, pc_guess]
     end
   end
 
@@ -35,10 +35,10 @@ class HumanGuess
     puts "Enter your final guess now. Be careful. If you're wrong, it's game over."
     puts "Or type 1 to cancel and go back to guessing letters."
     final_guess = gets.chomp
-    if final_guess.to_i == 1
-      guess
+    unless final_guess.to_i == 1
+      [1, final_guess]
     else
-      #this should submit the final guess but to where? idk
+      guess
     end
   end
 
