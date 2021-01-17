@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
+require 'yaml'
 require_relative 'human_guess'
 require_relative 'display'
 require_relative 'revealed'
 
+# Controls the rules of the game
 class GameRun
   def initialize(key)
     @key = key
@@ -11,9 +15,8 @@ class GameRun
     @guess_count = 0
   end
 
-  
   def game_run
-    validate_arr = game_round
+    game_round
     game_end
   end
 
@@ -22,6 +25,7 @@ class GameRun
     @revealed.new_revealed_key
     human_guess = HumanGuess.new
     while @guess_count < 7 && @validator == false
+      save_option
       user_guess = human_guess.guess
       check_correct(user_guess)
       @revealed.print_revealed
@@ -30,9 +34,9 @@ class GameRun
   end
 
   def check(guess)
-    if @key.include?guess
+    if @key.include? guess
       true
-    else 
+    else
       false
     end
   end
@@ -47,20 +51,34 @@ class GameRun
 
   def correct_guess(user_guess)
     display_answer = @revealed.reveal_letter(user_guess)
-    unless display_answer.include?("__  ")
-      @validator = true
-    end
+    @validator = true unless display_answer.include?('__  ')
     @guess_count -= 1
   end
-      
 
   def game_end
     if @guess_count == 7
-      puts "Game Over. Please try again."
+      puts 'Game Over. Please try again.'
     else
       puts "Congratulations! #{@key} is the correct answer."
     end
   end
 
-  
+  def save_option
+    puts "If you'd like to save, type \"save\" now. Otherwise, enter any key."
+    tmp = gets.chomp
+    if tmp.downcase == 'save'
+      save_game
+    else 
+      puts "Please, make your guess now."
+    end
+  end
+
+  def save_game
+    puts "Enter name for your save file now"
+    x = gets.chomp
+    somefile = File.open("../saved/#{x}.yaml", "w")
+    y = YAML.dump(self)
+    somefile.puts y
+    somefile.close   
+  end
 end

@@ -1,5 +1,7 @@
-class HumanGuess
+# frozen_string_literal: true
 
+# Accepts and validates user guess w/ regex
+class HumanGuess
   def guess
     valid = false
     while valid == false
@@ -24,5 +26,4 @@ class HumanGuess
   def guess_error
     puts "I'm sorry. That's an invalid entry. Please try again."
   end
-
 end

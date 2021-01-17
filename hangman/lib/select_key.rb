@@ -20,7 +20,7 @@ class SelectKey
   end
 
   def rand_generator
-    x = rand(0..@contents.length - 1)
+    rand(0..@contents.length - 1)
   end
 
   # rejects proper nouns and words either too long or short
