@@ -19,7 +19,7 @@ class Revealed
       counter = 0
       @key.each { |n|
         if n == user_guess
-          @revealed_key[counter] = n
+          @revealed_key[counter] = "  #{n} "
         end
         counter += 1
 

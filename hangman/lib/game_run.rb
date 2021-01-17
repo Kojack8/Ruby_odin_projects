@@ -6,6 +6,8 @@ class GameRun
   def initialize(key)
     @key = key
     @display = Display.new
+    @revealed = Revealed.new(@key)
+    @validator = false
     @guess_count = 0
   end
 
@@ -17,22 +19,12 @@ class GameRun
 
   # it should display the revealed_letters str at the start of each round
   def game_round
-    revealed = Revealed.new(@key)
-    revealed.new_revealed_key
+    @revealed.new_revealed_key
     human_guess = HumanGuess.new
-    validator = false
-    while @guess_count < 7 && validator == false
+    while @guess_count < 7 && @validator == false
       user_guess = human_guess.guess
-      if check(user_guess) == true
-        display_answer = revealed.reveal_letter(user_guess)
-        unless display_answer.include?("__  ")
-          validator = true
-        end
-        @guess_count -= 1
-      else
-        @display.portray(@guess_count)
-      end
-      revealed.print_revealed
+      check_correct(user_guess)
+      @revealed.print_revealed
       @guess_count += 1
     end
   end
@@ -44,6 +36,23 @@ class GameRun
       false
     end
   end
+
+  def check_correct(user_guess)
+    if check(user_guess) == true
+      correct_guess(user_guess)
+    else
+      @display.portray(@guess_count)
+    end
+  end
+
+  def correct_guess(user_guess)
+    display_answer = @revealed.reveal_letter(user_guess)
+    unless display_answer.include?("__  ")
+      @validator = true
+    end
+    @guess_count -= 1
+  end
+      
 
   def game_end
     if @guess_count == 7
