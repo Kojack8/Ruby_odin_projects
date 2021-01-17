@@ -1,13 +1,15 @@
 class Revealed
+  attr_reader :revealed_key
   def initialize(key)
     @key = key.scan /\w/
     @revealed_key = []
   end
 
-  def revealed_key
+  def new_revealed_key
     for j in 0..(@key.length - 1)
       @revealed_key.push("__  ")
     end
+    print_revealed
     @revealed_key
 
   end
@@ -25,6 +27,10 @@ class Revealed
       }
     end
     @revealed_key
+  end
+
+  def print_revealed
+    p @revealed_key.join(" ")
   end
 
 
