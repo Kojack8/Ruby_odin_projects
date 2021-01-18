@@ -4,7 +4,6 @@
 class SelectKey
   def select_key
     i = rand_generator
-    p @contents[i]
     key = verify(@contents[i])
     if key == false
       select_key
