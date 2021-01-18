@@ -16,13 +16,13 @@ class GameRun
   end
 
   def game_run
+    @revealed.new_revealed_key
     game_round
     game_end
   end
 
   # it should display the revealed_letters str at the start of each round
   def game_round
-    @revealed.new_revealed_key
     human_guess = HumanGuess.new
     while @guess_count < 7 && @validator == false
       save_option
@@ -68,17 +68,18 @@ class GameRun
     tmp = gets.chomp
     if tmp.downcase == 'save'
       save_game
-    else 
-      puts "Please, make your guess now."
+    else
+      puts 'Please, make your guess now.'
     end
   end
 
   def save_game
-    puts "Enter name for your save file now"
+    puts 'Enter name for your save file now'
     x = gets.chomp
-    somefile = File.open("../saved/#{x}.yaml", "w")
+    somefile = File.open("../saved/#{x}.yaml", 'w')
     y = YAML.dump(self)
     somefile.puts y
-    somefile.close   
+    somefile.close
+    p "If you'd like to continue enter your next guess now."
   end
 end

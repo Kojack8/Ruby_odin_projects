@@ -1,5 +1,5 @@
 --- !ruby/object:GameRun
-key: kittycat
+key: anarchic
 display: !ruby/object:Display
   hangman_arr:
   - |2-
@@ -67,22 +67,22 @@ display: !ruby/object:Display
       =========
 revealed: !ruby/object:Revealed
   key:
-  - k
-  - i
-  - t
-  - t
-  - y
-  - c
   - a
-  - t
+  - n
+  - a
+  - r
+  - c
+  - h
+  - i
+  - c
   revealed_key:
-  - "  k "
-  - "  i "
-  - "  t "
-  - "  t "
+  - "  a "
+  - "  n "
+  - "  a "
   - '__  '
   - '__  '
   - '__  '
-  - "  t "
+  - '__  '
+  - '__  '
 validator: false
 guess_count: 0

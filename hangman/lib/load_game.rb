@@ -31,7 +31,8 @@ class LoadGame
     load_choices
     unless user_entry == false
       file = File.open(@saved_files[@save_index])
-      YAML.load(file.read)
+      contents = file.read
+      YAML.load(contents)
     else 
       false
     end
