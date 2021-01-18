@@ -17,8 +17,9 @@ load = LoadGame.new
 if load.load_game == true
   new_game
 else
-  unless load.load_sequence == false
-
+  data = load.load_sequence
+  unless data == false
+    data.game_round
   else
     new_game
   end
