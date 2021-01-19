@@ -1,7 +1,11 @@
 class Node
-  def initialize
-    @value = nil
+  def initialize(value)
+    @value = value
     @next_node = nil
-  def value
+  end
+
+  attr_reader :value
+  attr_accessor :next_node
+
 
   end
