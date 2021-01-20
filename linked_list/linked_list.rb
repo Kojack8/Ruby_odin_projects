@@ -7,42 +7,107 @@ class LinkedList
   end
 
   def append(value)
-    x = Node.new(value)
-    add_to_list(x)
-
-
+    new_node = Node.new(value)
+    add_to_list(new_node)
+    @tail = new_node
   end
 
-  def add_to_list(x)
+  def prepend(value)
+    new_node = Node.new(value)
+    new_node.next_node = @head
+    @head = new_node
+  end
+
+  def add_to_list(node)
     if @head == nil
-      @head = x
+      @head = node
     else
       last_node = traverse_list_forwards(@head)
-      last_node.next_node = x
+      last_node.next_node = node
       last_node
     end
   end
 
-  # this should go through the linked list recursively unless next_point is nil
-  def traverse_list_forwards(x)
-    chain = x
-    if chain.next_node == nil
-      chain
+  # goes through the linked list recursively unless next_point is nil
+  def traverse_list_forwards(node)
+    pointer = node
+    if pointer.next_node == nil
+      pointer
     else
-      chain = chain.next_node
-      traverse_list_forwards(chain)
+      pointer = pointer.next_node
+      traverse_list_forwards(pointer)
     end
   end
 
   def print_list
     p @head.value
-    chain = @head.next_node
-    while chain != nil
-      p chain.value
-      chain = chain.next_node
+    pointer = @head.next_node
+    while pointer != nil
+      p pointer.value
+      pointer = pointer.next_node
     end
+  end
+
+  def size
+    if @head != nil
+      counter = 1
+      pointer = @head.next_node
+      while pointer != nil
+        counter += 1
+        pointer = pointer.next_node
+      end
+      counter
+    else
+      0
+    end
+  end
+
+  def print_head
+    if @head == nil
+      p "The linked list is currently empty"
+    else
+      p "The first node in the linked list is #{@head}"
+    end
+  end
+
+  def print_tail
+    if @tail == nil
+      p "The linked list is currently empty"
+    else
+      p "The last node in the linked list is #{@tail}"
+    end
+  end
+
+  # traverse with index
+  def at(index, counter = 0, pointer = @head)
+    if counter == index
+      [pointer, counter]
+    else
+      pointer = pointer.next_node
+      counter += 1
+      at(index, counter, pointer)
+    end
+  end
+
+  def pop
+    pop_recursive(@head)
+  end
+
+  def pop_recursive(pointer)
+    if pointer.next_node == @tail
+      pointer.next_node = nil
+      @tail = pointer
+    else
+      pointer = pointer.next_node
+      pop_recursive(pointer)
+    end
+  end
+
+  def contains?(value)
     
   end
 
+  
+  attr_reader :tail
  
 end
