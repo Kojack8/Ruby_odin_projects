@@ -81,7 +81,7 @@ class LinkedList
   # traverse with index
   def at(index, counter = 0, pointer = @head)
     if counter == index
-      [pointer, counter]
+      pointer
     else
       pointer = pointer.next_node
       counter += 1
@@ -89,22 +89,36 @@ class LinkedList
     end
   end
 
-  def pop
-    pop_recursive(@head)
-  end
-
-  def pop_recursive(pointer)
+  def pop(pointer = @head)
     if pointer.next_node == @tail
       pointer.next_node = nil
       @tail = pointer
     else
       pointer = pointer.next_node
-      pop_recursive(pointer)
+      pop(pointer)
     end
   end
 
-  def contains?(value)
-    
+  def contains?(value, pointer = @head, counter = 0)
+    if pointer.value == value
+      [true, counter]
+    elsif pointer.next_node != nil
+      pointer = pointer.next_node
+      counter += 1
+      contains?(value, pointer, counter)
+    else
+      [false, nil]
+    end
+  end
+
+  def find(value)
+    contains = contains?(value)
+    if contains?(value)[0] == true
+      contains[1]
+    else
+      nil
+    end
+
   end
 
   
