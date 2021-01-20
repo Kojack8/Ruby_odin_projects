@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# creates new nodes containing a value and a pointer to the next item in the list
 class Node
   def initialize(value)
     @value = value
@@ -6,6 +9,4 @@ class Node
 
   attr_reader :value
   attr_accessor :next_node
-
-
-  end
+end
