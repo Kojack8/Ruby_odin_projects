@@ -4,7 +4,7 @@ class Node
     @left = left
     @right = right
   end
-  attr_reader :left, :right
+  attr_accessor :left, :right, :data
 end
 
   

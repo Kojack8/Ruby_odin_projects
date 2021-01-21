@@ -1,6 +1,8 @@
 require_relative 'node'
-
+require_relative './modules/pretty_print'
+# creates a balanced binary tree from an array containing numbers
 class Tree
+  include PrettyPrint
   def initialize(array)
     # root should use the return value FROM build tree
     p @root = build_tree(array)
@@ -8,59 +10,83 @@ class Tree
 
   # this method should return he level one root node
   def build_tree(array)
-    p array
-    if array.length > 3
-      node = define_node(array)
-      assemble_nodes(node)
-    elsif array.length < 4
-      node = bottom_nodes(array)
-      assemble_nodes(node)
-    end
+    array = array.sort.uniq
+    node = define_node(array)
+
+    
     node
   end
 
-  def assemble_nodes(node)
-    if node.left != nil
-      build_tree(node.left)
-    end
-    if node.right != nil
-      node.right
-      build_tree(node.right)
-    end
-  end
 
   def define_node(array)
-    array = array.sort.uniq
     mid_index = find_mid(array)
-    mid = array[mid_index]
-    left = array[0..(mid_index - 1)]
-    right = array[(mid_index + 1)..-1]
-    node = Node.new(mid, left, right)
+    node = Node.new(array[mid_index])
+    left_arr = array[0..(mid_index - 1)]
+    right_arr = array[(mid_index + 1)..-1]
+    left_node = determine_sides(left_arr)
+    right_node = determine_sides(right_arr, false)  
+    node.left = left_node
+    node.right = right_node
+    node
   end
 
-  def bottom_nodes(array)
-    if array.length == 3
-      mid = []
-      left = []
-      right = []
-      mid = mid.push(array[1])
-      left = left.push(array[0])
-      right = right.push(array[2])
-      node = Node.new(mid, left, right)
-    elsif array.length == 2
-      mid = []
-      left = []
-      mid = mid.push(array[1])
-      left = left.push(array[0])
-      node = Node.new(mid, left)
-
-    elsif array.length == 1
-      mid = []
-      mid = mid.push(array[0])
-      node = Node.new(mid)
+  def determine_sides(array, is_left = true)
+    if is_left == true
+      if array.length > 2
+        node = define_node(array)
+      else
+        node = bottom_node(array)
+      end
+    else
+      if array.length > 2
+        node = define_node(array)
+      else
+        node = bottom_node(array, false)
+      end
     end
     node
   end
+
+  def bottom_node(array, is_left = true)
+    if is_left == true
+      node = left_bottom(array)
+    else
+      node = right_bottom(array)
+    end
+    node
+    
+  end
+
+  def left_bottom(array)
+    bottom_nodes = []
+    if array.length == 2
+      left_node = bottom_node(bottom_nodes.push(array[0]))
+      node = Node.new(array[1], left_node)
+    elsif array.length == 1
+      node = Node.new(array[0])
+    end
+    node 
+  end
+
+  def right_bottom(array)
+    bottom_nodes = []
+    if array.length == 2
+      right_node = bottom_node(bottom_nodes.push(array[1]), false)
+      node = Node.new(array[0], nil, right_node)
+    elsif array.length == 1
+      node = Node.new(array[0])
+    end
+  end
+
+
+
+
+  
+
+
+
+
+  
       
       
 
