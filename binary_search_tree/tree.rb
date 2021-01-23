@@ -64,4 +64,61 @@ class Tree
     finish = array.length - 1
     (start + (finish - start) / 2)
   end
+
+  # takes a Numeric and inserts a new node at that location
+  def insert(key)
+    return unless key.is_a? Numeric
+    goto_leaf(key, @root)
+    # at the end it needs to rebalance the tree but that currently only works with arrays?
+    # one of the last items on TOP list is rebalancing so i'll assume its worth doing in order
+    
+  end
+
+  def goto_leaf(key, root)
+    if key == root.data
+      return nil
+    end
+
+    if root.left.nil? == true && root.right.nil? == true
+      insert_new_node(key, root)
+      return
+    end
+    move_pointer(key, root)
+
+  end
+
+  def move_pointer(key, root)
+    if root.data > key && root.left.nil? == false
+      goto_leaf(key, root.left)
+    elsif root.data < key && root.right.nil? == false
+      goto_leaf(key, root.right)
+    end
+  end
+
+
+  def find(key, root)
+    if root == nil || root.data == key
+      return root
+    end
+    if root.data < key
+      return find(key, root.right)
+    end
+    find(key, root.left)
+    
+
+  end
+
+  def insert_new_node(key, root)
+    new_node = Node.new(key)
+    if root.data < key
+      root.right = new_node
+    else
+      root.left = new_node
+    end
+
+
+
+  end
 end
+
+
