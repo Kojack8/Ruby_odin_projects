@@ -2,12 +2,16 @@ require_relative 'tree'
 
 tree = Tree.new([2, 4, 6, 8, 10, 12, 14, 16, 18, 20])
 tree.pretty_print
+tree.insert(7)
 tree.insert(-4)
 tree.insert(5)
 tree.insert(8709)
 tree.insert(19)
 tree.insert(1)
+tree.insert(9)
+tree.insert(7)
 tree.insert(11)
+tree.insert(13)
 tree.insert(8710)
 tree.insert(8711)
 tree.insert(8712)

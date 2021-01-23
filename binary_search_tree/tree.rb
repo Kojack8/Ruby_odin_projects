@@ -79,19 +79,33 @@ class Tree
       return nil
     end
 
+    p 'CHECK DEEZ'
+    p key
+    p root.data
+    p root.left
+    p root.right
     if root.left.nil? == true && root.right.nil? == true
       insert_new_node(key, root)
-      return
+    else
+      move_pointer(key, root)
     end
-    move_pointer(key, root)
 
   end
 
   def move_pointer(key, root)
-    if root.data > key && root.left.nil? == false
-      goto_leaf(key, root.left)
-    elsif root.data < key && root.right.nil? == false
+    p 'ROUND TWO'
+    p key
+    p root.data
+    p root.left
+    p root.right
+    if root.left.nil?
       goto_leaf(key, root.right)
+    elsif root.right.nil?
+      goto_leaf(key, root.left)
+    elsif root.data < key
+      goto_leaf(key, root.right)
+    elsif root.data > key
+      goto_leaf(key, root.left)
     end
   end
 
@@ -104,8 +118,6 @@ class Tree
       return find(key, root.right)
     end
     find(key, root.left)
-    
-
   end
 
   def insert_new_node(key, root)
