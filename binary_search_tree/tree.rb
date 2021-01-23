@@ -68,56 +68,49 @@ class Tree
   # takes a Numeric and inserts a new node at that location
   def insert(key)
     return unless key.is_a? Numeric
-    goto_leaf(key, @root)
+
+    leaf_root = goto_leaf(key, @root)
+    insert_new_node(key, leaf_root)
     # at the end it needs to rebalance the tree but that currently only works with arrays?
     # one of the last items on TOP list is rebalancing so i'll assume its worth doing in order
-    
   end
 
+  # takes the given root and traverses to where the key should be inserted the binary tree
   def goto_leaf(key, root)
-    if key == root.data
-      return nil
-    end
+    return nil unless key != root.data
 
-    p 'CHECK DEEZ'
-    p key
-    p root.data
-    p root.left
-    p root.right
     if root.left.nil? == true && root.right.nil? == true
-      insert_new_node(key, root)
+      root
     else
       move_pointer(key, root)
     end
-
   end
 
+  # moves pointer to key insertion leaf
   def move_pointer(key, root)
-    p 'ROUND TWO'
-    p key
-    p root.data
-    p root.left
-    p root.right
-    if root.left.nil?
-      goto_leaf(key, root.right)
-    elsif root.right.nil?
+    if root.right.nil?
       goto_leaf(key, root.left)
-    elsif root.data < key
+    elsif root.left.nil?
       goto_leaf(key, root.right)
     elsif root.data > key
       goto_leaf(key, root.left)
+    elsif root.data < key
+      goto_leaf(key, root.right)
     end
   end
 
+  def find(key, root, parent = nil)
+    location = []
+    location.push(root)
+    location.push(parent)
+    return location if root.nil? || root.data == key
 
-  def find(key, root)
-    if root == nil || root.data == key
-      return root
-    end
+    parent = root
     if root.data < key
-      return find(key, root.right)
+      find(key, root.right, parent)
+    else
+      find(key, root.left, parent)
     end
-    find(key, root.left)
   end
 
   def insert_new_node(key, root)
@@ -127,10 +120,66 @@ class Tree
     else
       root.left = new_node
     end
+  end
 
+  def delete(key)
+    # find returns an array containing [0] the root node and [1] it's parent node
+    node_arr = find(key, @root)
+    return if node_arr[0].nil?
 
+    delete_mode(node_arr)
+  end
 
+  def delete_mode(node_arr)
+    if node_arr[0].left.nil? && node_arr[0].right.nil?
+      zero_child_del(node_arr)
+    elsif node_arr[0].left.nil? || node_arr[0].right.nil?
+      one_child_del(node_arr[0])
+    else
+      two_child_del(node_arr)
+    end
+  end
+
+  # node array should contain 2 values. [0] the root node and [1] it's parent node
+  def zero_child_del(node_arr)
+    if node_arr[1].left == node_arr[0]
+      node_arr[1].left = nil
+    elsif node_arr[1].right == node_arr[0]
+      node_arr[1].right = nil
+    end
+  end
+
+  def one_child_del(node_arr)
+    if node_arr.left.nil? == false
+      node_arr.data = node_arr.left.data
+      node_arr.left = node_arr.left.left
+    else
+      node_arr.data = node_arr.right.data
+      node_arr.right = node_arr.right.right
+    end
+  end
+
+  def two_child_del(node_arr)
+    successor = recurs_successor(node_arr[0].right, node_arr[0].right, node_arr[0].data)
+    location = find(successor.data, @root)
+    node_arr[0].data = successor.data
+    reassign_two_child(location)
+  end
+
+  def reassign_two_child(location)
+    if location[1].left == location[0]
+      location[1].left = location[1].left.left
+    elsif location[1].right == location[0]
+      location[1].right = location[1].right.right
+    end
+  end
+
+  # obtained by finding the minimum value in the children of the relevant node
+
+  def recurs_successor(node, succ, key)
+    succ = recurs_successor(node.left, succ, key) unless node.left.nil?
+    succ = recurs_successor(node.right, succ, key) unless node.right.nil?
+    succ = node if node.data < succ.data && node.data > key
+    succ
   end
 end
-
-
