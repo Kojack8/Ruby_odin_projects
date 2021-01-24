@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-
+require_relative 'level_order'
+require_relative 'tree'
 # Determines the whether or not a tree is balanced
 class Balance
   include Find
@@ -48,5 +49,11 @@ class Balance
     else
       false
     end
+  end
+
+  def rebalance
+    level_order = LevelOrder.new(@root)
+    level_order = level_order.level_order
+    tree = Tree.new(level_order)
   end
 end

@@ -3,7 +3,7 @@
 # Breadth first level order traversal
 class LevelOrder
   def initialize(tree)
-    @root = tree.root
+    @root = tree
   end
 
   # eturns an array of values in breadth-first order

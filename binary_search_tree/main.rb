@@ -11,6 +11,13 @@ arr = []
   arr.push(i * 5)
 end
 tree = Tree.new(arr)
+tree.insert(100)
+tree.insert(101)
+tree.insert(102)
+tree.insert(105)
+tree.insert(110)
+tree.insert(90)
+tree.insert(55)
 
 
 
@@ -20,6 +27,10 @@ tree = Tree.new(arr)
 
 tree.pretty_print
 balanced = Balance.new(tree.root)
+p balanced.balanced?
+new_tree = balanced.rebalance
+balanced = Balance.new(new_tree.root)
+new_tree.pretty_print
 p balanced.balanced?
 
 
