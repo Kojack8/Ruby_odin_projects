@@ -4,22 +4,24 @@ require_relative 'tree'
 require_relative 'level_order'
 require_relative 'depth_order'
 require_relative 'position'
+require_relative 'balanced'
 
 arr = []
-(0..50).each do |i|
-  arr.push(i * 2)
+(1..10).each do |i|
+  arr.push(i * 5)
 end
 tree = Tree.new(arr)
-tree.pretty_print
 
-position = Position.new(tree)
-p position.depth(52)
-p position.depth(0)
-p position.depth(6)
-p position.depth(16)
-p position.depth(76)
-p position.depth(88)
-p position.depth(50)
+
+
+
+
+
+
+tree.pretty_print
+balanced = Balance.new(tree.root)
+p balanced.balanced?
+
 
 
 
