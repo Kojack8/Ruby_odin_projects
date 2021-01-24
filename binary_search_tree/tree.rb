@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'node'
+require_relative 'level_order'
 require_relative './modules/pretty_print'
 # creates a balanced binary tree from an array containing numbers
 class Tree
@@ -182,4 +183,6 @@ class Tree
     succ = node if node.data < succ.data && node.data > key
     succ
   end
+
+  attr_reader :root
 end

@@ -1,41 +1,24 @@
+# frozen_string_literal: true
+
 require_relative 'tree'
 
-tree = Tree.new([111, 222, 333, 444, 5555, 6, 77, 88888, -9, 220, 225, 460, 543, 1, 3000, 600, 700, 800])
-tree.pretty_print
-p '-------------------------------------------'
+arr = []
+(0..50).each do |i|
+  arr.push(i * 2)
+end
+tree = Tree.new(arr)
 
-tree.delete(700)
-tree.pretty_print
-p '-------------------------------------------'
+order = LevelOrder.new(tree)
+p order.level_order
 
-tree.delete(333)
-tree.pretty_print
-p '-------------------------------------------'
+p '---------------------------------------------'
 
-tree.delete(225)
-tree.pretty_print
-p '-------------------------------------------'
-tree.delete(222)
-tree.pretty_print
-p '-------------------------------------------'
-tree.delete(111)
-tree.pretty_print
-p '-------------------------------------------'
-tree.delete(444)
-tree.pretty_print
-p '-------------------------------------------'
-tree.delete(1)
-tree.pretty_print
-p '-------------------------------------------'
-tree.delete(-9)
-tree.pretty_print
-p '-------------------------------------------'
+ tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+ tree.pretty_print
 
+ order = LevelOrder.new(tree)
+ p order.level_order
 
-#tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-#tree.pretty_print
-
-
-#p '-------------------------------------------'
-#tree = Tree.new([1.05, 7,999999, 4, 76, 23, 33, -8, 9, -4, 3.15, 5, 7, 9, 67.14159, -6345, 324, 23, 4, 76])
-#tree.pretty_print
+# p '-------------------------------------------'
+# tree = Tree.new([1.05, 7,999999, 4, 76, 23, 33, -8, 9, -4, 3.15, 5, 7, 9, 67.14159, -6345, 324, 23, 4, 76])
+# tree.pretty_print
