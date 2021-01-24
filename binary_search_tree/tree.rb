@@ -2,9 +2,10 @@
 
 require_relative 'node'
 require_relative './modules/pretty_print'
+require_relative './modules/find'
 # creates a balanced binary tree from an array containing numbers
 class Tree
-  include PrettyPrint
+  include Find, PrettyPrint
   def initialize(array)
     # root should use the return value FROM build tree
     @root = build_tree(array)
@@ -70,7 +71,9 @@ class Tree
     return unless key.is_a? Numeric
 
     leaf_root = goto_leaf(key, @root)
-    insert_new_node(key, leaf_root)
+    unless leaf_root == nil 
+      insert_new_node(key, leaf_root)
+    end
     # at the end it needs to rebalance the tree but that currently only works with arrays?
     # one of the last items on TOP list is rebalancing so i'll assume its worth doing in order
   end
@@ -99,19 +102,6 @@ class Tree
     end
   end
 
-  def find(key, root, parent = nil)
-    location = []
-    location.push(root)
-    location.push(parent)
-    return location if root.nil? || root.data == key
-
-    parent = root
-    if root.data < key
-      find(key, root.right, parent)
-    else
-      find(key, root.left, parent)
-    end
-  end
 
   def insert_new_node(key, root)
     new_node = Node.new(key)
