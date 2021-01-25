@@ -3,44 +3,46 @@
 require_relative 'tree'
 require_relative 'level_order'
 require_relative 'depth_order'
-require_relative 'position'
 require_relative 'balanced'
+require_relative 'position'
 
-arr = []
-(1..10).each do |i|
-  arr.push(i * 5)
+def balance_print(balance)
+  if balance.balanced?
+    p 'This tree is balanced'
+  else
+    p 'This tree is NOT correctly balanced.'
+  end
 end
-tree = Tree.new(arr)
-tree.insert(100)
-tree.insert(101)
-tree.insert(102)
-tree.insert(105)
-tree.insert(110)
-tree.insert(90)
-tree.insert(55)
-
-
-
-
-
-
-
+x = Array.new(15) { rand(1..100) }
+tree = Tree.new(x)
 tree.pretty_print
-balanced = Balance.new(tree.root)
-p balanced.balanced?
-new_tree = balanced.rebalance
-balanced = Balance.new(new_tree.root)
-new_tree.pretty_print
-p balanced.balanced?
+balance_print(Balance.new(tree))
 
+level_order = LevelOrder.new(tree)
+p "The order of the tree by level is #{level_order.level_order}."
+depth_order = DepthOrder.new(tree)
+p "The order of the tree by depth(preorder) is #{depth_order.preorder}"
+p "The order of the tree by depth(inorder) is #{depth_order.inorder}"
+p "The order of the tree by depth(postorder) is #{depth_order.postorder}"
 
+p '-------------------------------------------------------------'
+tree.insert(125)
+tree.insert(150)
+tree.insert(200)
+tree.pretty_print
 
-
-
-
-
-
-
-
-# tree = Tree.new([1.05, 7,999999, 4, 76, 23, 33, -8, 9, -4, 3.15, 5, 7, 9, 67.14159, -6345, 324, 23, 4, 76])
-# tree.pretty_print
+balance = Balance.new(tree)
+balance_print(balance)
+p '-------------------------------------------------------------'
+tree = balance.rebalance
+tree.pretty_print
+balance_print(Balance.new(tree))
+level_order = LevelOrder.new(tree)
+p "The order of the tree by level is #{level_order.level_order}."
+depth_order = DepthOrder.new(tree)
+p "The order of the tree by depth(preorder) is #{depth_order.preorder}"
+p "The order of the tree by depth(inorder) is #{depth_order.inorder}"
+p "The order of the tree by depth(postorder) is #{depth_order.postorder}"
+position = Position.new(tree.root)
+p y = rand(0..14)
+p "The depth of node #{x[y]} relative to the tree root is #{position.depth(x[y])}"

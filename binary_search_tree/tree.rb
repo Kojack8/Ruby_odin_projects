@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'node'
-require_relative 'position'
 require_relative './modules/pretty_print'
 require_relative './modules/find'
 # creates a balanced binary tree from an array containing numbers

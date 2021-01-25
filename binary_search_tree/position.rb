@@ -3,8 +3,8 @@ require_relative './modules/find'
 # Allows you to find the height of a tree from a root. Or the depth of a root relative to the roots root
 class Position
   include Find
-  def initialize(root)
-    @root = root
+  def initialize(tree)
+    @root = tree
   end
 
   def height(root = @root, counter = 0)
