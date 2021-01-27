@@ -4,10 +4,11 @@ require_relative 'knight'
 board = Board.new
 
 
-p knight = Knight.new([6, 6])
+knight = Knight.new([3, 3])
 knight.determine_right
 knight.determine_left
-p knight.level_order
+knight.find_path([1, 1])
+
 
 
 

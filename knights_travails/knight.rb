@@ -2,12 +2,42 @@
 class Knight
   attr_accessor :location, :left, :right
   def initialize(location)
-    p 'NEW KNIGHT'
     @location = location
     @left = nil
     @right = nil
 
    
+  end
+
+  def find_path(trgt, root = @location, unvisited = [])
+    return nil unless validate_target(trgt) != false
+    @left.each { |i| p i.location}
+    p @right
+    sleep(5)
+    p trgt_parent = path_recurs(trgt)
+  end
+
+  def path_recurs(trgt, root = self, unvisited = [])
+    unvisited = handle_unvisited(unvisited, root)
+    if unvisited.include?(trgt)
+      return root
+    end
+    for i in 0..(unvisited.length - 1)
+      path_recurs(trgt, i, unvisited)
+    end
+  end
+
+  def handle_unvisited(unvisited, root)
+    unvisited.slice!(unvisited.index(root)) if unvisited.include?(root)
+    add_unvisited(unvisited, root)
+  end
+
+  def add_unvisited(unvisited, root)
+    @left.each { |i| if i != nil 
+      unvisited.push(i.location) end}
+    @right.each { |i| if i != nil 
+      unvisited.push(i.location) end}
+    unvisited
   end
 
     # RIGHT NOW YOUR EXPANSION OF CHILD NODES WORKS ON COMMAND WHICH PREVENTS A STACK OVERFLOW. NOW YOU MSUT COMBINED THAT WITH A BREDH FIRST SEARCH?
@@ -74,7 +104,7 @@ class Knight
   end
 
   def determine_left
-    p left_arr = create_left_arr
+    left_arr = create_left_arr
     node_arr = []
     for i in 0..(left_arr.length - 1)
       if left_arr[i] != nil
@@ -123,14 +153,6 @@ class Knight
     loc[1] += 1
     return nil unless loc[0] > -1 && loc[0] < 8 && loc[1] > -1 && loc[1] < 8
     loc
-  end
-
-  def find_path(trgt)
-    return nil unless validate_target(trgt) != false
-    trgt
-
-    
-    
   end
 
   def validate_target(trgt)
