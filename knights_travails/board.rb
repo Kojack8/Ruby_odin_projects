@@ -1,10 +1,11 @@
+
 # creates an array containing 64 chess board spaces
 class Board
   def initialize
-    @default = make_board
+    @root = make_board_arr
   end
 
-  def make_board
+  def make_board_arr
     arr = []
     for i in (0..7)
       for j in (0..7)
@@ -13,7 +14,12 @@ class Board
     end
     arr
   end
-  attr_reader :default
+
+
+
+
+
+  attr_reader :root
 end
 
   

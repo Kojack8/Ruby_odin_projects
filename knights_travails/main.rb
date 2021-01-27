@@ -2,7 +2,12 @@ require_relative 'board'
 require_relative 'knight'
 
 board = Board.new
-board.make_board
-p board.default
-knight = Knight.new([0,0])
-knight.possible_moves
+
+
+p knight = Knight.new([6, 6])
+knight.determine_right
+knight.determine_left
+p knight.level_order
+
+
+
