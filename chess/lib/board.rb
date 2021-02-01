@@ -12,23 +12,14 @@ class Board
   end
 
   def fill_pawns 
-    p arr = pawn_arr
-    # arr.each { |i| 
-    #  Pawn.new(i.location)
-
-    #}
-  end
-
-  def pawn_arr
-    arr = []
     @default.each { |i| 
       if i.location[1] == 1 || i.location[1] == 6
-        #arr << i
         p i.occupier = Pawn.new(i.location)
       end
     }
-    #arr
   end
+
+
 
   def make_board
     arr = make_board_arr
