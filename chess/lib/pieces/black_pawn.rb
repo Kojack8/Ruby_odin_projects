@@ -1,4 +1,7 @@
+require_relative '../modules/verify'
+
 class BlackPawn
+  include Verify
   def initialize(loc)
     @location = loc
     @moves = determine_moves
@@ -10,6 +13,7 @@ class BlackPawn
     move_directions.each { |i|
       loc = @location.dup
       loc[1] += i
+      loc = verify(loc)
       arr << loc
     }
     arr
