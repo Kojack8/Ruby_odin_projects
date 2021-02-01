@@ -5,6 +5,7 @@ class BlackPawn
   def initialize(loc)
     @location = loc
     @moves = determine_moves
+    @color = 2
   end
 
   def determine_moves

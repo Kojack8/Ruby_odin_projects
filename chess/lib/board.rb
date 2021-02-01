@@ -19,16 +19,20 @@ class Board
   
   def fill_knights
     @default.each { |i|
-      if i.location == [0, 1] || i.location == [0, 6] || i.location == [7, 1] || i.location == [7, 6]
-        p i.occupier = Knight.new(i.location)
+      if i.location == [1, 0] || i.location == [6, 0]  
+        i.occupier = Knight.new(i.location, 1)
+      elsif i.location == [1, 7] || i.location == [6, 7]
+        i.occupier = Knight.new(i.location, 1)
       end
     }
   end
 
   def fill_rooks
     @default.each { |i|
-      if i.location == [0, 0] || i.location == [0, 7] || i.location == [7, 7] || i.location == [7, 0]
-        i.occupier = Rook.new(i.location)
+      if i.location == [0, 0] || i.location == [7, 0]
+        i.occupier = Rook.new(i.location, 1)
+      elsif  i.location == [0, 7] || i.location == [7, 7]
+        i.occupier = Rook.new(i.location, 2)
       end
     }
   end

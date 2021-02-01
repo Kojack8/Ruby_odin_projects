@@ -2,9 +2,10 @@ require_relative '../modules/verify'
 
 class Rook
   include Verify
-  def initialize(loc)
+  def initialize(loc, color)
     @location = loc
     @moves = determine_moves
+    @color = color
   end
 
   def determine_moves

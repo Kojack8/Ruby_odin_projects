@@ -5,6 +5,7 @@ class WhitePawn
   def initialize(loc)
     @location = loc
     @moves = determine_moves
+    @color = 1
   end
 
   def determine_moves
