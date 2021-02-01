@@ -15,6 +15,17 @@ class Board
     fill_pawns
     fill_rooks
     fill_knights
+    fill_bishops
+  end
+
+  def fill_bishops
+    @default.each { |i|
+      if i.location == [2, 0] || i.location == [5, 0]  
+        i.occupier = Bishop.new(i.location, 1)
+      elsif i.location == [2, 7] || i.location == [5, 7]
+        i.occupier = Bishop.new(i.location, 2)
+      end
+    }
   end
   
   def fill_knights
@@ -22,7 +33,7 @@ class Board
       if i.location == [1, 0] || i.location == [6, 0]  
         i.occupier = Knight.new(i.location, 1)
       elsif i.location == [1, 7] || i.location == [6, 7]
-        i.occupier = Knight.new(i.location, 1)
+        i.occupier = Knight.new(i.location, 2)
       end
     }
   end
