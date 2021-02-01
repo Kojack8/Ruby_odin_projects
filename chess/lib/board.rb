@@ -17,6 +17,17 @@ class Board
     fill_knights
     fill_bishops
     fill_kings
+    fill_queens
+  end
+
+  def fill_queens
+    @default.each { |i|
+      if i.location == [3, 0] 
+        i.occupier = Queen.new(i.location, 1)
+      elsif i.location == [3, 7] 
+        i.occupier = Queen.new(i.location, 2)
+      end
+    }
   end
 
   def fill_kings
