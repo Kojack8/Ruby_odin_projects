@@ -1,5 +1,6 @@
 require_relative 'square'
 require_relative './pieces/white_pawn'
+require_relative './pieces/black_pawn'
 
 class Board
   attr_reader :default
@@ -13,8 +14,13 @@ class Board
 
   def fill_pawns 
     @default.each { |i| 
-      if i.location[1] == 1 || i.location[1] == 6
+      if i.location[1] == 1
         i.occupier = WhitePawn.new(i.location)
+      end
+    }
+    @default.each { |i|
+      if i.location[1] == 6
+        i.occupier = BlackPawn.new(i.location)
       end
     }
   end
