@@ -1,7 +1,10 @@
 require_relative 'square'
 require_relative './pieces/white_pawn'
 require_relative './pieces/black_pawn'
-
+require_relative './pieces/rook'
+require_relative './pieces/knight'
+# Location is decided using tradition chess file(column) by rank(row) 
+# [column, row]
 class Board
   attr_reader :default
   def initialize
@@ -10,6 +13,24 @@ class Board
 
   def fill_board
     fill_pawns
+    fill_rooks
+    fill_knights
+  end
+  
+  def fill_knights
+    @default.each { |i|
+      if i.location == [0, 1] || i.location == [0, 6] || i.location == [7, 1] || i.location == [7, 6]
+        p i.occupier = Knight.new(i.location)
+      end
+    }
+  end
+
+  def fill_rooks
+    @default.each { |i|
+      if i.location == [0, 0] || i.location == [0, 7] || i.location == [7, 7] || i.location == [7, 0]
+        i.occupier = Rook.new(i.location)
+      end
+    }
   end
 
   def fill_pawns 

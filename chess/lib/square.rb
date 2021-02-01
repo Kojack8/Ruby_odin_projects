@@ -1,4 +1,4 @@
-# Location is decided using tradition chess rank(row) and file(column)
+# Location is decided using tradition chess file(column) by rank(row) 
 class Square
   attr_reader :location
   attr_accessor :occupier
