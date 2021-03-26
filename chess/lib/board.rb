@@ -8,6 +8,7 @@ require_relative './pieces/queen'
 require_relative './pieces/king'
 # Location is decided using tradition chess file(column) by rank(row) 
 # [column, row]
+# CHESS PROJECT IS INCOMPLETE
 class Board
   attr_reader :default
   def initialize

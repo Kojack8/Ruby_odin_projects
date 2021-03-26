@@ -10,10 +10,8 @@ class Rook
 
   def determine_moves
     arr = []
-    move_directions = [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], 
-    [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [0, -1], [0, -2],
-    [0, -3], [0, -4], [0, -5], [0, -6], [0, -7], [-1, 0], [-2, 0], [-3, 0],
-    [-4, 0], [-5, 0], [-6, 0], [-7, 0]]
+    right_arr = determine_right
+    
     move_directions.each { |i|
       loc = @location.dup
       loc[0] += i[0]
@@ -24,4 +22,19 @@ class Rook
     arr
   end
 
+  def determine_right
+    arr = [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7]]
+  end
+
+  def determine_up
+    arr = [[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]
+  end
+
+  def determine_down
+    arr = [[0, -1], [0, -2],[0, -3], [0, -4], [0, -5], [0, -6], [0, -7]]
+  end
+
+  def determine_left
+    arr = [[-1, 0], [-2, 0], [-3, 0], [-4, 0], [-5, 0], [-6, 0], [-7, 0]]
+  end
 end
